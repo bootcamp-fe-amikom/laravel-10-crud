@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;
 
 class ArticleController extends Controller
 {
@@ -68,5 +69,25 @@ class ArticleController extends Controller
         $article->save();
 
         return redirect()->route('home')->with('success', 'Sukses memperbarui data artikel!');
+    }
+
+    public function getArticleFromApi(Request $request) {
+        $articles = Article::get();
+
+        return response([
+            'meta' => [
+                'code' => Response::HTTP_OK,
+                'message' => 'success get products'
+            ],
+            'data' => [
+                [
+                    'title' => 'Pembangunan Masjid',
+                    'location' => 'Yogyakarta',
+                    'image_url' => 'https://google.com/image.jpg',
+                    'current_fund' => 230000000,
+                    'percentage_fund' => 50.00,
+                ]
+            ],
+        ], Response::HTTP_OK);
     }
 }

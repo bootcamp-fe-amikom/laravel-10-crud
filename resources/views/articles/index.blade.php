@@ -15,6 +15,12 @@
         Tambahkan Artikel
     </button>
 
+    @if(auth()->user())
+    <a href="{{ route('logout') }}" class="btn btn-danger btn-sm">Logout</a>
+    @else
+    <a href="{{ route('show-login') }}" class="btn btn-success btn-sm">Login</a>
+    @endif
+
     <!-- Alert -->
 
     <div class="mt-4">
@@ -64,7 +70,7 @@
         <!-- Read -->
         <div class="container">
             <div class="row">
-                <div class="col">
+                <div class="col-sm">
                     <table class="table table-striped">
                         <tr>
                             <td>No</td>
@@ -84,9 +90,10 @@
                             </td>
                             <td>{{$article->author}}</td>
                             <td>
+                                @if(auth()->user())
                                 <a href="{{route('edit-data', $article->id)}}" class="btn btn-sm btn-primary">Edit</a>
                                 <a href="{{route('delete-data', $article->id)}}" class="btn btn-sm btn-danger">Hapus</a>
-
+                                @endif
                             </td>
                         </tr>
                         @endforeach
